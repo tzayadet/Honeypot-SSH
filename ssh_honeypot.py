@@ -78,10 +78,13 @@ def handle_client(client: socket.socket, address: tuple[str, int], host_key: par
     except (OSError, paramiko.SSHException) as exc:
         logger.info("CONNECTION_CLOSED | ip=%s | reason=%s", remote_ip, type(exc).__name__)
     finally:
-        if transport is not None:
-            transport.close()
-        else:
-            client.close()
+        try:
+            if transport is not None:
+                transport.close()
+            else:
+                client.close()
+        finally:
+            ACTIVE_CLIENTS.release()
 
 
 def main() -> None:
