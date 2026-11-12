@@ -3,7 +3,7 @@ from unittest.mock import Mock
 
 import paramiko
 
-from honeypot import Handler
+from ssh_honeypot import Handler
 
 
 class HoneypotHandlerTests(unittest.TestCase):
