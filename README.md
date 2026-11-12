@@ -37,7 +37,7 @@ En Windows PowerShell:
 ```powershell
 $env:HP_HOST = "127.0.0.1"
 $env:HP_PORT = "2222"
-python honeypot.py
+python ssh_honeypot.py
 ```
 
 Variables disponibles:
