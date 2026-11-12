@@ -63,7 +63,7 @@ docker run --rm --name ssh-honeypot \
 
 ## Estructura
 
-- `honeypot.py`: servidor SSH de laboratorio.
+- `ssh_honeypot.py`: servidor SSH de laboratorio.
 - `requirements.txt`: dependencias Python.
 - `Dockerfile`: imagen de contenedor no privilegiada.
 
