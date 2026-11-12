@@ -1,4 +1,4 @@
-name: Deploy SSH Honeypot Lab project page
+name: Deploy SSH Deception Lab project page
 on:
   push:
     branches: [main]
@@ -11,7 +11,7 @@ permissions:
   pages: write
   id-token: write
 concurrency:
-  group: ssh-honeypot-pages
+  group: ssh-deception-pages
   cancel-in-progress: true
 jobs:
   deploy:
