@@ -1,5 +1,7 @@
-# SSH Honeypot Lab
+# SSH Deception Lab
 Prototipo de honeypot SSH en Python basado en Paramiko. Registra intentos de autenticación y solicitudes de ejecución para estudiar actividad en un entorno de laboratorio.
+
+[![SSH Deception Lab CI](https://github.com/tzayadet/Honeypot-SSH/actions/workflows/python-syntax.yml/badge.svg)](https://github.com/tzayadet/Honeypot-SSH/actions/workflows/python-syntax.yml)
 
 ## Alcance y seguridad
 
@@ -27,7 +29,7 @@ python -m pip install -r requirements.txt
 Por defecto escucha únicamente en loopback:
 
 ```bash
-python honeypot.py
+python ssh_honeypot.py
 ```
 
 En Windows PowerShell:
