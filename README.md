@@ -70,6 +70,17 @@ docker run --rm --name ssh-honeypot \
 
 No es un honeypot de alta interacción ni un entorno de ejecución aislado. No implementa shell falso, persistencia de sesiones, rotación de logs ni almacenamiento estructurado. La clave de host se genera al iniciar el proceso, por lo que cambia entre ejecuciones.
 
+## Pruebas
+
+Las pruebas verifican que no se registran contraseñas, que no se ofrecen terminales interactivas y que las solicitudes `exec` se registran sin ejecutar comandos.
+
+```bash
+python -m pip install -r requirements.txt
+python -m unittest discover -s tests -v
+```
+
+GitHub Actions ejecuta estas comprobaciones en cada push y pull request.
+
 ## Licencia
 
 Consulta [LICENSE](LICENSE).
