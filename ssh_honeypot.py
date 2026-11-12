@@ -16,6 +16,9 @@ import paramiko
 LOG_FILE = os.environ.get("HP_LOG_FILE", "hp.log")
 HOST = os.environ.get("HP_HOST", "127.0.0.1")
 PORT = int(os.environ.get("HP_PORT", "2222"))
+MAX_CLIENTS = 32
+CLIENT_TIMEOUT_SECONDS = 30
+ACTIVE_CLIENTS = threading.BoundedSemaphore(MAX_CLIENTS)
 
 logging.basicConfig(
     filename=LOG_FILE,
@@ -86,16 +89,26 @@ def main() -> None:
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server:
         server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         server.bind((HOST, PORT))
-        server.listen(32)
+        server.listen(MAX_CLIENTS)
         logger.info("HONEYPOT_STARTED | bind=%s | port=%s", HOST, PORT)
         print(f"SSH honeypot listening on {HOST}:{PORT} (no shell, no command execution)")
         while True:
             client, address = server.accept()
-            threading.Thread(
-                target=handle_client,
-                args=(client, address, host_key),
-                daemon=True,
-            ).start()
+            if not ACTIVE_CLIENTS.acquire(blocking=False):
+                logger.warning("CONNECTION_REJECTED | ip=%s | reason=capacity", address[0])
+                client.close()
+                continue
+            try:
+                client.settimeout(CLIENT_TIMEOUT_SECONDS)
+                threading.Thread(
+                    target=handle_client,
+                    args=(client, address, host_key),
+                    daemon=True,
+                ).start()
+            except Exception:
+                ACTIVE_CLIENTS.release()
+                client.close()
+                raise
 
 
 if __name__ == "__main__":
