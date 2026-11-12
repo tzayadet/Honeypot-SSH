@@ -18,7 +18,7 @@ No lo expongas directamente a Internet ni lo ejecutes en un servidor de producci
 ## Requisitos
 
 - Python 3.11+
-- Paramiko 3.5 o superior, versión principal 4.x no incluida.
+- Paramiko 3.5 o superior (versiones 3.x y 4.x permitidas; 5.x no incluida por el límite de dependencias).
 
 ```bash
 python -m pip install -r requirements.txt
