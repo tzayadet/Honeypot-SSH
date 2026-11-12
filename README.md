@@ -1,5 +1,4 @@
-# SSH Honeypot
-
+# SSH Honeypot Lab
 Prototipo de honeypot SSH en Python basado en Paramiko. Registra intentos de autenticación y solicitudes de ejecución para estudiar actividad en un entorno de laboratorio.
 
 ## Alcance y seguridad
