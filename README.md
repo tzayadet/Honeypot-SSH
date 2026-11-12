@@ -20,6 +20,7 @@ A low-interaction SSH honeypot prototype built with Python and Paramiko. It reco
 - Does not store, print or log submitted passwords.
 - Rejects interactive terminal and shell requests.
 - Records SSH `exec` requests without running the submitted commands.
+- Caps concurrent clients at 32 and applies a 30-second socket inactivity timeout.
 - Supports local execution and Docker-based lab deployment.
 
 ## Run locally
@@ -31,7 +32,7 @@ python -m pip install -r requirements.txt
 python ssh_honeypot.py
 ```
 
-By default, the service listens on loopback at port 2222. Environment variables can configure the bind address, port and log file.
+By default, the service listens on loopback at port 2222. Environment variables can configure the bind address, port and log file. The server accepts at most 32 concurrent clients; inactive sockets are closed after 30 seconds.
 
 ## Docker
 
