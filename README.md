@@ -1,15 +1,20 @@
+<p align="center">
+  <img src="https://img.shields.io/badge/DECEPTION_LAB-SSH_HONEYPOT-101010?style=for-the-badge&labelColor=050805&color=00FF41" alt="SSH deception lab"/>
+  <img src="https://img.shields.io/badge/PYTHON-PARAMIKO-101010?style=for-the-badge&logo=python&logoColor=00FF41" alt="Python"/>
+</p>
+
 # SSH Deception Lab
 
-A Python-based SSH honeypot prototype built with Paramiko. It records authentication attempts and requested SSH commands for controlled lab analysis without executing submitted commands.
+A low-interaction SSH honeypot prototype built with Python and Paramiko. It records authentication attempts and requested SSH commands for controlled lab analysis without executing submitted commands.
 
 <p align="center">
-  <a href="https://tzayadet.github.io/Honeypot-SSH/"><img src="https://img.shields.io/badge/LIVE_SHOWCASE-OPEN-00a86b?style=flat-square" alt="Live showcase"></a>
-  <a href="https://github.com/tzayadet/Honeypot-SSH"><img src="https://img.shields.io/badge/SOURCE-GITHUB-161b22?style=flat-square&logo=github" alt="Source code"></a>
+  <a href="https://tzayadet.github.io/Honeypot-SSH/"><strong>PROJECT SHOWCASE ↗</strong></a> ·
+  <a href="https://github.com/tzayadet/Honeypot-SSH"><strong>SOURCE CODE</strong></a>
 </p>
 
 [![Python CI](https://github.com/tzayadet/Honeypot-SSH/actions/workflows/python-syntax.yml/badge.svg)](https://github.com/tzayadet/Honeypot-SSH/actions/workflows/python-syntax.yml) · [![Container build](https://github.com/tzayadet/Honeypot-SSH/actions/workflows/container-build.yml/badge.svg)](https://github.com/tzayadet/Honeypot-SSH/actions/workflows/container-build.yml)
 
-## What it does
+## Features
 
 - Records usernames and source IP addresses from authentication attempts.
 - Does not store, print or log submitted passwords.
@@ -19,14 +24,14 @@ A Python-based SSH honeypot prototype built with Paramiko. It records authentica
 
 ## Run locally
 
-**Requirements:** Python 3.11 or later and Paramiko 3.5 or later.
+**Requirements:** Python 3.11+ and Paramiko 3.5+.
 
 ```bash
 python -m pip install -r requirements.txt
 python ssh_honeypot.py
 ```
 
-By default, the service listens on loopback at port 2222. Environment variables can be used to configure the bind address, port and log file.
+By default, the service listens on loopback at port 2222. Environment variables can configure the bind address, port and log file.
 
 ## Docker
 
@@ -41,7 +46,7 @@ docker run --rm --name ssh-deception-lab \
 
 Keep the service bound to loopback or an isolated lab network. Do not publish the container port on a public host interface.
 
-## Project structure
+## Project layout
 
 | Path | Purpose |
 |---|---|
@@ -51,15 +56,15 @@ Keep the service bound to loopback or an isolated lab network. Do not publish th
 | `tests/` | Behaviour and safety tests |
 | `.github/workflows/` | Automated checks and showcase deployment |
 
-## Live showcase
+## Showcase
 
-[Open SSH Deception Lab](https://tzayadet.github.io/Honeypot-SSH/)
-
-The static page presents the project and its behaviour. It does not run an SSH service or collect network traffic.
+The [static showcase](https://tzayadet.github.io/Honeypot-SSH/) presents the project and its behaviour. It does not run an SSH service or collect network traffic.
 
 ## Scope and safety
 
-This is a low-interaction experimental honeypot, not a production SSH server or an isolated execution environment. It does not provide a fake shell, command execution, session persistence or a complete log-management system. Run it in a virtual machine or isolated network and protect collected logs: usernames, source addresses and requested commands may contain sensitive information.
+This is a low-interaction experimental honeypot, not a production SSH server or an isolated execution environment. It does not provide a fake shell, command execution, session persistence or a complete log-management system.
+
+Run it in a virtual machine or isolated network. Protect collected logs: usernames, source addresses and requested commands may contain sensitive information.
 
 ## Tests
 
@@ -69,4 +74,4 @@ python -m unittest discover -s tests -v
 
 ## License
 
-See [LICENSE](LICENSE) for the repository's licensing terms.
+See [LICENSE](LICENSE).
