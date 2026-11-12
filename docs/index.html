@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="SSH Honeypot Lab: a Python and Paramiko prototype for observing SSH authentication events in an isolated environment.">
-<title>SSH Honeypot Lab | Project Demo</title>
+<meta name="description" content="SSH Deception Lab: a Python and Paramiko prototype for observing SSH authentication events in an isolated environment.">
+<title>SSH Deception Lab | Project Demo</title>
 <style>
 :root{color-scheme:dark;--bg:#0b1118;--panel:#111c27;--line:#263747;--text:#e7edf3;--muted:#9fb0bf;--accent:#55d6a7}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 80% 0,#18332e 0,transparent 35%),var(--bg);color:var(--text);font:16px/1.6 system-ui,sans-serif}
@@ -13,9 +13,9 @@ h1{font-size:clamp(2.4rem,6vw,4.5rem);line-height:1.05;margin:16px 0}p{color:var
 </style>
 </head>
 <body><main>
-<header><div class="eyebrow">Python · Paramiko · SSH · Security Lab</div><h1>SSH Honeypot Lab</h1>
+<header><div class="eyebrow">Python · Paramiko · SSH · Security Lab</div><h1>SSH Deception Lab</h1>
 <p>A controlled-environment prototype that records SSH authentication metadata and requested commands for security learning and defensive analysis. This page is a project overview, not a live honeypot or telemetry feed.</p>
-<div class="actions"><a href="https://github.com/tzayadet/01-Honeypot-SSH">View source on GitHub</a><a href="https://github.com/tzayadet/01-Honeypot-SSH/blob/main/README.md">Read documentation</a></div></header>
+<div class="actions"><a href="https://github.com/tzayadet/Honeypot-SSH">View source on GitHub</a><a href="https://github.com/tzayadet/Honeypot-SSH/blob/main/README.md">Read documentation</a></div></header>
 <section class="grid">
 <article class="card"><div class="tag">01 / OBSERVABILITY</div><h2>Authentication events</h2><p>Records source address and submitted username. Password values are never stored or printed.</p></article>
 <article class="card"><div class="tag">02 / SAFE HANDLING</div><h2>Request inspection</h2><p>Rejects interactive shells and records SSH exec requests without executing the submitted commands.</p></article>
