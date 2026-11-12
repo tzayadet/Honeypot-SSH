@@ -1,91 +1,72 @@
 # SSH Deception Lab
 
-[![SSH Deception Lab CI](https://github.com/tzayadet/Honeypot-SSH/actions/workflows/python-syntax.yml/badge.svg)](https://github.com/tzayadet/Honeypot-SSH/actions/workflows/python-syntax.yml) [![Container build](https://github.com/tzayadet/Honeypot-SSH/actions/workflows/container-build.yml/badge.svg)](https://github.com/tzayadet/Honeypot-SSH/actions/workflows/container-build.yml) [![GitHub Pages](https://github.com/tzayadet/Honeypot-SSH/actions/workflows/pages.yml/badge.svg)](https://github.com/tzayadet/Honeypot-SSH/actions/workflows/pages.yml)
+A Python-based SSH honeypot prototype built with Paramiko. It records authentication attempts and requested SSH commands for controlled lab analysis without executing submitted commands.
 
-**Project showcase:** [SSH Deception Lab](https://tzayadet.github.io/Honeypot-SSH/) · [Source](https://github.com/tzayadet/Honeypot-SSH)
-Prototipo de honeypot SSH en Python basado en Paramiko. Registra intentos de autenticación y solicitudes de ejecución para estudiar actividad en un entorno de laboratorio.
+<p align="center">
+  <a href="https://tzayadet.github.io/Honeypot-SSH/"><img src="https://img.shields.io/badge/LIVE_SHOWCASE-OPEN-00a86b?style=flat-square" alt="Live showcase"></a>
+  <a href="https://github.com/tzayadet/Honeypot-SSH"><img src="https://img.shields.io/badge/SOURCE-GITHUB-161b22?style=flat-square&logo=github" alt="Source code"></a>
+</p>
 
-[![SSH Deception Lab CI](https://github.com/tzayadet/Honeypot-SSH/actions/workflows/python-syntax.yml/badge.svg)](https://github.com/tzayadet/Honeypot-SSH/actions/workflows/python-syntax.yml) · [![Container build](https://github.com/tzayadet/Honeypot-SSH/actions/workflows/container-build.yml/badge.svg)](https://github.com/tzayadet/Honeypot-SSH/actions/workflows/container-build.yml)
+[![Python CI](https://github.com/tzayadet/Honeypot-SSH/actions/workflows/python-syntax.yml/badge.svg)](https://github.com/tzayadet/Honeypot-SSH/actions/workflows/python-syntax.yml) · [![Container build](https://github.com/tzayadet/Honeypot-SSH/actions/workflows/container-build.yml/badge.svg)](https://github.com/tzayadet/Honeypot-SSH/actions/workflows/container-build.yml)
 
-## Alcance y seguridad
+## What it does
 
-Este proyecto es experimental y **no es un servidor SSH de acceso remoto**.
+- Records usernames and source IP addresses from authentication attempts.
+- Does not store, print or log submitted passwords.
+- Rejects interactive terminal and shell requests.
+- Records SSH `exec` requests without running the submitted commands.
+- Supports local execution and Docker-based lab deployment.
 
-- Registra el nombre de usuario y la IP de origen de los intentos de autenticación.
-- Nunca almacena, imprime ni registra el valor de las contraseñas recibidas.
-- Rechaza las solicitudes de terminal interactiva y shell.
-- Registra las solicitudes SSH `exec`, pero no ejecuta los comandos recibidos.
-- No proporciona aislamiento del sistema operativo: ejecútalo igualmente en una VM o red de laboratorio aislada.
+## Run locally
 
-No lo expongas directamente a Internet ni lo ejecutes en un servidor de producción. Los nombres de usuario y comandos solicitados pueden contener datos personales o sensibles; protege y elimina los logs conforme a tu política de retención.
-
-## Requisitos
-
-- Python 3.11+
-- Paramiko 3.5 o superior (versiones 3.x y 4.x permitidas; 5.x no incluida por el límite de dependencias).
+**Requirements:** Python 3.11 or later and Paramiko 3.5 or later.
 
 ```bash
 python -m pip install -r requirements.txt
-```
-
-## Ejecución local
-
-Por defecto escucha únicamente en loopback:
-
-```bash
 python ssh_honeypot.py
 ```
 
-En Windows PowerShell:
-
-```powershell
-$env:HP_HOST = "127.0.0.1"
-$env:HP_PORT = "2222"
-python ssh_honeypot.py
-```
-
-Variables disponibles:
-
-- `HP_HOST`: dirección de escucha. Por defecto, `127.0.0.1`.
-- `HP_PORT`: puerto TCP. Por defecto, `2222`.
-- `HP_LOG_FILE`: fichero de eventos. Por defecto, `hp.log`.
-
-Para pruebas desde otra máquina, cambia la dirección de escucha solo dentro de una red aislada y restringe el acceso mediante firewall.
+By default, the service listens on loopback at port 2222. Environment variables can be used to configure the bind address, port and log file.
 
 ## Docker
 
-La imagen configura la escucha en todas las interfaces **dentro del contenedor**. No publiques el puerto en una interfaz pública del host.
-
 ```bash
-docker build -t ssh-honeypot .
-docker run --rm --name ssh-honeypot \
+docker build -t ssh-deception-lab .
+docker run --rm --name ssh-deception-lab \
   -p 127.0.0.1:2222:2222 \
   -v "$PWD/logs:/app/logs" \
   -e HP_LOG_FILE=/app/logs/hp.log \
-  ssh-honeypot
+  ssh-deception-lab
 ```
 
-## Estructura
+Keep the service bound to loopback or an isolated lab network. Do not publish the container port on a public host interface.
 
-- `ssh_honeypot.py`: servidor SSH de laboratorio.
-- `requirements.txt`: dependencias Python.
-- `Dockerfile`: imagen de contenedor no privilegiada.
+## Project structure
 
-## Limitaciones
+| Path | Purpose |
+|---|---|
+| `ssh_honeypot.py` | SSH honeypot service |
+| `requirements.txt` | Python dependencies |
+| `Dockerfile` | Container build |
+| `tests/` | Behaviour and safety tests |
+| `.github/workflows/` | Automated checks and showcase deployment |
 
-No es un honeypot de alta interacción ni un entorno de ejecución aislado. No implementa shell falso, persistencia de sesiones, rotación de logs ni almacenamiento estructurado. La clave de host se genera al iniciar el proceso, por lo que cambia entre ejecuciones.
+## Live showcase
 
-## Pruebas
+[Open SSH Deception Lab](https://tzayadet.github.io/Honeypot-SSH/)
 
-Las pruebas verifican que no se registran contraseñas, que no se ofrecen terminales interactivas y que las solicitudes `exec` se registran sin ejecutar comandos.
+The static page presents the project and its behaviour. It does not run an SSH service or collect network traffic.
+
+## Scope and safety
+
+This is a low-interaction experimental honeypot, not a production SSH server or an isolated execution environment. It does not provide a fake shell, command execution, session persistence or a complete log-management system. Run it in a virtual machine or isolated network and protect collected logs: usernames, source addresses and requested commands may contain sensitive information.
+
+## Tests
 
 ```bash
-python -m pip install -r requirements.txt
 python -m unittest discover -s tests -v
 ```
 
-GitHub Actions ejecuta estas comprobaciones en cada push y pull request.
+## License
 
-## Licencia
-
-Consulta [LICENSE](LICENSE).
+See [LICENSE](LICENSE) for the repository's licensing terms.
