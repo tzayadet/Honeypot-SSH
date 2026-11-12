@@ -14,4 +14,4 @@ COPY --chown=appuser:appuser ssh_honeypot.py .
 USER appuser
 
 EXPOSE 2222
-CMD ["python", "honeypot.py"]
+CMD ["python", "ssh_honeypot.py"]
