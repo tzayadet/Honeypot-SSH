@@ -12,9 +12,9 @@ A low-interaction SSH honeypot prototype built with Python and Paramiko. It reco
   <a href="https://github.com/tzayadet/Honeypot-SSH"><strong>SOURCE CODE</strong></a>
 </p>
 
-[![Python CI](https://github.com/tzayadet/Honeypot-SSH/actions/workflows/python-syntax.yml/badge.svg)](https://github.com/tzayadet/Honeypot-SSH/actions/workflows/python-syntax.yml) · [![Container build](https://github.com/tzayadet/Honeypot-SSH/actions/workflows/container-build.yml/badge.svg)](https://github.com/tzayadet/Honeypot-SSH/actions/workflows/container-build.yml)
+[![Python CI](https://github.com/tzayadet/Honeypot-SSH/actions/workflows/python-syntax.yml/badge.svg)](https://github.com/tzayadet/Honeypot-SSH/actions/workflows/python-syntax.yml) · [![Pages](https://github.com/tzayadet/Honeypot-SSH/actions/workflows/pages.yml/badge.svg)](https://github.com/tzayadet/Honeypot-SSH/actions/workflows/pages.yml) · [![Container build](https://github.com/tzayadet/Honeypot-SSH/actions/workflows/container-build.yml/badge.svg)](https://github.com/tzayadet/Honeypot-SSH/actions/workflows/container-build.yml)
 
-## Features
+## Overview
 
 - Records usernames and source IP addresses from authentication attempts.
 - Does not store, print or log submitted passwords.
@@ -47,7 +47,7 @@ docker run --rm --name ssh-deception-lab \
 
 Keep the service bound to loopback or an isolated lab network. Do not publish the container port on a public host interface.
 
-## Project layout
+## Project structure
 
 | Path | Purpose |
 |---|---|
@@ -61,13 +61,13 @@ Keep the service bound to loopback or an isolated lab network. Do not publish th
 
 The [static showcase](https://tzayadet.github.io/Honeypot-SSH/) presents the project and its behaviour. It does not run an SSH service or collect network traffic.
 
-## Scope and safety
+## Scope and limitations
 
 This is a low-interaction experimental honeypot, not a production SSH server or an isolated execution environment. It does not provide a fake shell, command execution, session persistence or a complete log-management system.
 
 Run it in a virtual machine or isolated network. Protect collected logs: usernames, source addresses and requested commands may contain sensitive information.
 
-## Tests
+## Validation
 
 ```bash
 python -m unittest discover -s tests -v
