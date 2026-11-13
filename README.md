@@ -8,7 +8,7 @@
 A low-interaction SSH honeypot prototype built with Python and Paramiko. It records authentication attempts and requested SSH commands for controlled lab analysis without executing submitted commands.
 
 <p align="center">
-  <a href="https://tzayadet.github.io/Honeypot-SSH/"><strong>PROJECT SHOWCASE ↗</strong></a> ·
+  <a href="https://tzayadet.github.io/Honeypot-SSH/"><strong>LIVE DEMO ↗</strong></a> ·
   <a href="https://github.com/tzayadet/Honeypot-SSH"><strong>SOURCE CODE</strong></a>
 </p>
 
