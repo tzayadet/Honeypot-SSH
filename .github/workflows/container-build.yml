@@ -24,6 +24,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Build container image
         run: docker build --tag ssh-deception-lab:ci .
